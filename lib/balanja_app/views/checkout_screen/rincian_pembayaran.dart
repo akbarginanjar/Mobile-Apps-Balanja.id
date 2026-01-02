@@ -1,0 +1,129 @@
+import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
+
+class RincianPembayaran extends StatelessWidget {
+  final VarianBarang? varian;
+  const RincianPembayaran({super.key, required this.varian});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(CheckoutController());
+    return Container(
+      color: dark,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(bottom: 73.0),
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.inventory_outlined,
+                size: 20,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(width: 6.0),
+              Text("Rincian Pembayaran"),
+            ],
+          ),
+          Divider(color: Colors.grey[200]),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Total Harga'),
+              Obx(() => Text(toCurrency(controller.totalSemuaProduk.value))),
+            ],
+          ),
+          GetBuilder<CheckoutController>(
+            init: CheckoutController(),
+            builder: (metodeController) {
+              return metodeController.courierPrice.value != 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Subtotal pengiriman'),
+                        Text(toCurrency(metodeController.courierPrice.value)),
+                      ],
+                    )
+                  : SizedBox.shrink();
+            },
+          ),
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Biaya layanan'),
+                Text(toCurrency(controller.transaksiBiayaLayanan.value)),
+              ],
+            ),
+          ),
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Biaya Aplikasi'),
+                Text(toCurrency(controller.transaksiBiayaAplikasi.value)),
+              ],
+            ),
+          ),
+          Obx(
+            () => controller.isDonasiActive.value
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Donasi'),
+                      Text(toCurrency(controller.transaksiDonasi.value)),
+                    ],
+                  )
+                : SizedBox.shrink(), // hidden
+          ),
+          Obx(
+            () => controller.voucherValue.value != 0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Diskon'),
+                      if (controller.voucherType.value == 'nominal')
+                        Text(
+                          '-${toCurrency(controller.voucherValue.value)}',
+                          style: TextStyle(color: Colors.red[800]),
+                        )
+                      else
+                        Text('-${controller.voucherValue.value}'),
+                    ],
+                  )
+                : SizedBox.shrink(),
+          ),
+          GetBuilder<CheckoutController>(
+            init: CheckoutController(),
+            builder: (c) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Total'),
+                  Obx(
+                    () => Text(
+                      toCurrency(controller.totalBayarCheckout.value),
+                      style: Theme.of(context).textTheme.titleMedium?.apply(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}

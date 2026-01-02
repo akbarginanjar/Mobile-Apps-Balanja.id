@@ -1,0 +1,80 @@
+import 'package:mobile_balanja_id/balanja_app/global_resource.dart'; // Sesuaikan path import global_resource
+
+class PilihPesananScreen extends StatelessWidget {
+  const PilihPesananScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pilih Pesanan Anda', style: TextStyle(color: textTheme)),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: primary),
+        backgroundColor: dark,
+        surfaceTintColor: dark,
+        shape: Border(bottom: BorderSide(color: textTheme)),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            _buildTransactionButton(
+              icon: Icons.shopping_bag_outlined,
+              text: 'Transaksi Produk',
+              onTap: () {
+                Get.to(() => const PesananScreen());
+              },
+            ),
+            const SizedBox(height: 10),
+            _buildTransactionButton(
+              icon: Icons.handshake_outlined,
+              text: 'Transaksi Jasa',
+              onTap: () {
+                Get.to(() => const PesananScreen());
+              },
+            ),
+            const SizedBox(height: 10),
+            _buildTransactionButton(
+              icon: Icons.school_outlined,
+              text: 'Transaksi Pelatihan',
+              onTap: () {
+                Get.to(() => const PesananScreen());
+              },
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTransactionButton({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return Card(
+      color: dark,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          child: Row(
+            children: [
+              Icon(icon, color: primary, size: 28),
+              const SizedBox(width: 15),
+              Expanded(
+                child: Text(
+                  text,
+                  style: TextStyle(color: textTheme, fontSize: 16),
+                ),
+              ),
+              Icon(Icons.chevron_right, color: primary, size: 28),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
