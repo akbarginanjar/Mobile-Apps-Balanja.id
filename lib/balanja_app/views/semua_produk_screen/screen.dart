@@ -2,6 +2,7 @@ import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
 import 'package:mobile_balanja_id/balanja_app/views/search_produk/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/semua_produk_screen/card_semua_produk.dart';
 import 'package:mobile_balanja_id/balanja_app/views/semua_produk_screen/filter_semua_produk.dart';
+import 'package:mobile_balanja_id/balanja_app/views/semua_produk_screen/produk_skeleton.dart';
 
 class SemuaProdukScreen extends StatefulWidget {
   const SemuaProdukScreen({super.key});
@@ -11,6 +12,7 @@ class SemuaProdukScreen extends StatefulWidget {
 }
 
 class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
+  final ProdukController controller = Get.put(ProdukController());
   final GetProduk produkStateController = Get.put(GetProduk());
   final ScrollController _scrollController = ScrollController();
   TextEditingController search = TextEditingController();
@@ -20,6 +22,7 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    controller.loadProduk();
   }
 
   @override
@@ -115,7 +118,7 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
                     child: TextFormField(
                       controller: search,
                       decoration: InputDecoration(
-                        hintText: 'Cari barang dan jasa',
+                        hintText: 'Cari produk...',
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
@@ -181,69 +184,51 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
           ),
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: onRefresh,
-        backgroundColor: dark,
-        child: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<GetProduk>(
-              init: produkStateController,
-              builder: (controller) {
-                final state = controller.state;
-
-                if (state is IniProdukStates) {
-                  return SizedBox(
-                    height: Get.height * 0.6,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(primary),
-                      ),
-                    ),
-                  );
-                }
-
-                if (state is FilledProdukStates) {
-                  return ListView(
-                    controller: _scrollController,
-                    children: [
-                      const FilterSemuaProduk(),
-                      const SizedBox(height: 10),
-
-                      if (state.data == null || state.data!.isEmpty)
-                        const Center(child: Text("Tidak ada produk ditemukan."))
-                      else
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 1.0,
-                                mainAxisSpacing: 1.0,
-                                childAspectRatio: 0.70,
-                              ),
-                          itemCount: state.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CardSemuaProduk(produk: state.data![index]);
-                          },
-                        ),
-
-                      _buildFooterIndicator(state),
-
-                      const SizedBox(height: 20),
-                    ],
-                  );
-                }
-                return const Center(
-                  child: Text("Terjadi kesalahan tak terduga."),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
+      body: Obx(() {
+        return RefreshIndicator(
+          onRefresh: () async {
+            await controller.loadProduk();
+          },
+          child: controller.isLoading.value && controller.produkList.isEmpty
+              ? GridView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    childAspectRatio: 0.70, // khas card ecommerce
+                  ),
+                  itemCount: 6,
+                  itemBuilder: (_, __) => const ProdukSkeleton(),
+                )
+              : GridView.builder(
+                  controller: controller.scrollC,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    childAspectRatio: 0.70,
+                  ),
+                  itemCount:
+                      controller.produkList.length +
+                      (controller.isMoreLoading.value
+                          ? 2
+                          : 0), // 👈 skeleton count
+                  itemBuilder: (context, index) {
+                    if (index < controller.produkList.length) {
+                      final produk = controller.produkList[index];
+                      return CardSemuaProduk(produk: produk);
+                    } else {
+                      // 👇 skeleton saat lazyload
+                      return const ProdukSkeleton();
+                    }
+                  },
+                ),
+        );
+      }),
     );
   }
 }

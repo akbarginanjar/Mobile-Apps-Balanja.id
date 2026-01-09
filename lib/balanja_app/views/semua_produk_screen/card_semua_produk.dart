@@ -3,7 +3,7 @@ import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
 
 class CardSemuaProduk extends StatelessWidget {
   final VoidCallback? onPress;
-  final Produk produk;
+  final Map<String, dynamic> produk;
   const CardSemuaProduk({super.key, this.onPress, required this.produk});
 
   @override
@@ -14,14 +14,14 @@ class CardSemuaProduk extends StatelessWidget {
       elevation: 0,
       shadowColor: Colors.black87,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         side: BorderSide(color: Colors.grey[200]!),
       ),
       child: InkWell(
         onTap: () {
-          Get.to(ProductScreen(produk: produk));
+          Get.to(ProductScreen(slug: produk['slug']));
         },
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,10 +30,14 @@ class CardSemuaProduk extends StatelessWidget {
                 // GAMBAR PRODUK
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
                   ),
-                  child: produk.photo!.isEmpty
+                  child:
+                      (produk['photo'] == null ||
+                          produk['photo']!.isEmpty ||
+                          produk['photo']![0]['path'] == null ||
+                          produk['photo']![0]['path'].toString().isEmpty)
                       ? Image.network(
                           'https://removal.ai/wp-content/uploads/2021/02/no-img.png',
                           height: 135,
@@ -41,7 +45,7 @@ class CardSemuaProduk extends StatelessWidget {
                           fit: BoxFit.cover,
                         )
                       : Image.network(
-                          produk.photo![0].path.toString(),
+                          produk['photo']![0]['path'].toString(),
                           height: 135,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -55,8 +59,8 @@ class CardSemuaProduk extends StatelessWidget {
                   child: Row(
                     children: [
                       // BADGE PRE ORDER
-                      if (produk.varianBarang![0].jumlah == 0 &&
-                          produk.varianBarang![0].barang!.isPreOrder == false)
+                      if (produk['jumlah'] == 0 &&
+                          produk['is_pre_order'] == false)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -64,7 +68,7 @@ class CardSemuaProduk extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: danger,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
                             "Stok Habis",
@@ -75,7 +79,7 @@ class CardSemuaProduk extends StatelessWidget {
                       const SizedBox(width: 5),
 
                       // BADGE READY STOCK
-                      if (produk.varianBarang![0].barang!.isPreOrder == true)
+                      if (produk['is_pre_order'] == true)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -83,7 +87,7 @@ class CardSemuaProduk extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: CupertinoColors.activeOrange,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
                             "Pre-Order",
@@ -93,8 +97,8 @@ class CardSemuaProduk extends StatelessWidget {
 
                       const SizedBox(width: 5),
 
-                      if (produk.varianBarang![0].jumlah != 0 &&
-                          produk.varianBarang![0].barang!.isPreOrder == true)
+                      if (produk['jumlah'] != 0 &&
+                          produk['is_pre_order'] == true)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -102,7 +106,7 @@ class CardSemuaProduk extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: success,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
                             "Ready Stok",
@@ -110,8 +114,8 @@ class CardSemuaProduk extends StatelessWidget {
                           ),
                         ),
 
-                      if (produk.varianBarang![0].jumlah != 0 &&
-                          produk.varianBarang![0].barang!.isPreOrder == false)
+                      if (produk['jumlah'] != 0 &&
+                          produk['is_pre_order'] == false)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -119,7 +123,7 @@ class CardSemuaProduk extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: success,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
                             "Ready Stok",
@@ -147,7 +151,7 @@ class CardSemuaProduk extends StatelessWidget {
                 children: [
                   // NAMA PRODUK
                   Text(
-                    produk.nama!,
+                    produk['nama'] ?? '-',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 13, color: textTheme),
@@ -155,23 +159,21 @@ class CardSemuaProduk extends StatelessWidget {
 
                   const SizedBox(height: 6),
 
-                  if (produk.hargaCoret != 0)
+                  if (produk['harga_coret'] != 0)
                     Text(
-                      toCurrency(produk.hargaCoret!),
+                      toCurrency(produk['harga_coret'] ?? 0),
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         color: Colors.grey,
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
 
-                  const SizedBox(height: 4),
-
                   // HARGA UTAMA
                   Text(
-                    toCurrency(produk.harga!),
+                    toCurrency(produk['harga'] ?? 0),
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w700,
                     ),
@@ -183,10 +185,14 @@ class CardSemuaProduk extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      produk.varianBarang![0].gudang!.alamat.toString(),
+                      (produk['gudang'] == null ||
+                              produk['gudang']['alamat'] == null ||
+                              produk['gudang']['alamat'].toString().isEmpty)
+                          ? '-'
+                          : produk['gudang']['alamat'].toString(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 11, color: textTheme),
+                      style: TextStyle(fontSize: 10, color: textTheme),
                     ),
                   ),
                 ],

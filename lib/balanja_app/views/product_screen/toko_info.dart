@@ -9,7 +9,7 @@ class TokoInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: dark,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 11.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

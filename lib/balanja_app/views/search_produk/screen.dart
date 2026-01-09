@@ -5,7 +5,7 @@ import 'package:mobile_balanja_id/balanja_app/views/semua_produk_screen/card_sem
 class SearchProduk extends StatefulWidget {
   String? search;
 
-  SearchProduk({super.key, required this.search});
+  SearchProduk({Key? key, required this.search}) : super(key: key);
 
   @override
   State<SearchProduk> createState() => _SearchProdukState();
@@ -14,7 +14,7 @@ class SearchProduk extends StatefulWidget {
 class _SearchProdukState extends State<SearchProduk> {
   Future<void> fetchData() async {
     setState(() {
-      ProdukController().searchProduk(widget.search!);
+      ProdukService().searchProduk(widget.search!);
     });
   }
 
@@ -62,7 +62,7 @@ class _SearchProdukState extends State<SearchProduk> {
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
-                          color: Colors.grey,
+                          color: textTheme,
                         ),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(
@@ -87,14 +87,14 @@ class _SearchProdukState extends State<SearchProduk> {
                         //   ),
                         // ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primary),
+                          borderSide: BorderSide(color: textTheme),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[300]!),
+                          borderSide: BorderSide(color: textTheme),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
@@ -145,7 +145,7 @@ class _SearchProdukState extends State<SearchProduk> {
                 ),
                 const SizedBox(height: 10),
                 FutureBuilder<List<dynamic>>(
-                  future: ProdukController().searchProduk(widget.search!),
+                  future: ProdukService().searchProduk(widget.search!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox(
