@@ -28,6 +28,16 @@ class ProdukService extends GetConnect {
     );
   }
 
+  Future<Response> ulasanProduk(params) {
+    final header = {
+      'secret':
+          'aKndsan23928h98hKJbkjwlKHD9dsbjwiobqUJGHBDWHvkHSJQUBSQOPSAJHVwoihdapq',
+      'Author': 'bearer $tokens',
+      'device': 'mobile',
+    };
+    return get('${Base.url}/v1/ulasan', headers: header, query: params);
+  }
+
   Future<List<Produk>> getProduk({int start = 0, int length = 6}) async {
     try {
       final String tokens = GetStorage().read('tokens');

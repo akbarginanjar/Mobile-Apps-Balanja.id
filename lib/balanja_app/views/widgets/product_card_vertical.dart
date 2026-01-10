@@ -14,11 +14,11 @@ class ProductCardVertical extends StatelessWidget {
       elevation: 0,
       shadowColor: Colors.black87,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-        side: BorderSide(color: Colors.grey[200]!),
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: dark),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(10),
         onTap: () => Get.to(() => ProductScreen(slug: produk['slug'])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,14 +28,10 @@ class ProductCardVertical extends StatelessWidget {
                 // GAMBAR PRODUK
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
-                  child:
-                      (produk['photo'] == null ||
-                          produk['photo']!.isEmpty ||
-                          produk['photo']![0]['path'] == null ||
-                          produk['photo']![0]['path'].toString().isEmpty)
+                  child: produk['photo'].isEmpty
                       ? Image.network(
                           'https://removal.ai/wp-content/uploads/2021/02/no-img.png',
                           height: 135,
@@ -43,7 +39,7 @@ class ProductCardVertical extends StatelessWidget {
                           fit: BoxFit.cover,
                         )
                       : Image.network(
-                          produk['photo']![0]['path'].toString(),
+                          produk['photo'][0]['path'].toString(),
                           height: 135,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -138,50 +134,33 @@ class ProductCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // NAMA PRODUK
                   Text(
-                    produk['nama'] ?? '-',
+                    '${produk['nama']}',
+                    softWrap: true,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 13, color: textTheme),
                   ),
-
-                  const SizedBox(height: 6),
-
-                  if (produk['harga_coret'] != 0)
-                    Text(
-                      toCurrency(produk['harga_coret'] ?? 0),
-                      style: const TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-
-                  // HARGA UTAMA
+                  const SizedBox(height: 3.0),
                   Text(
-                    toCurrency(produk['harga'] ?? 0),
+                    toCurrency(produk['harga']),
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-
-                  const SizedBox(height: 6),
-
-                  // ALAMAT
+                  const SizedBox(height: 3.0),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      (produk['gudang'] == null ||
-                              produk['gudang']['alamat'] == null ||
-                              produk['gudang']['alamat'].toString().isEmpty)
+                      produk['gudang'] == null
                           ? '-'
                           : produk['gudang']['alamat'].toString(),
+                      softWrap: true,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 10, color: textTheme),
+                      style: TextStyle(fontSize: 11, color: textTheme),
                     ),
                   ),
                 ],

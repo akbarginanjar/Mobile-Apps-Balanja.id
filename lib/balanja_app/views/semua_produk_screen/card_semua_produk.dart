@@ -14,14 +14,14 @@ class CardSemuaProduk extends StatelessWidget {
       elevation: 0,
       shadowColor: Colors.black87,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-        side: BorderSide(color: Colors.grey[200]!),
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: dark),
       ),
       child: InkWell(
         onTap: () {
           Get.to(ProductScreen(slug: produk['slug']));
         },
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,11 +33,7 @@ class CardSemuaProduk extends StatelessWidget {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   ),
-                  child:
-                      (produk['photo'] == null ||
-                          produk['photo']!.isEmpty ||
-                          produk['photo']![0]['path'] == null ||
-                          produk['photo']![0]['path'].toString().isEmpty)
+                  child: produk['photo']!.isEmpty
                       ? Image.network(
                           'https://removal.ai/wp-content/uploads/2021/02/no-img.png',
                           height: 135,
@@ -163,11 +159,13 @@ class CardSemuaProduk extends StatelessWidget {
                     Text(
                       toCurrency(produk['harga_coret'] ?? 0),
                       style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         color: Colors.grey,
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
+
+                  const SizedBox(height: 4),
 
                   // HARGA UTAMA
                   Text(
@@ -185,14 +183,12 @@ class CardSemuaProduk extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      (produk['gudang'] == null ||
-                              produk['gudang']['alamat'] == null ||
-                              produk['gudang']['alamat'].toString().isEmpty)
+                      produk['gudang']['alamat'] == null
                           ? '-'
                           : produk['gudang']['alamat'].toString(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 10, color: textTheme),
+                      style: TextStyle(fontSize: 11, color: textTheme),
                     ),
                   ),
                 ],

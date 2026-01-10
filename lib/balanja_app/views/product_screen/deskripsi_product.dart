@@ -12,12 +12,12 @@ class DeskripsiProduct extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 2000),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
-      color: dark,
+      color: dark2,
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Divider(color: Colors.grey[200], thickness: 1),
+          SizedBox(height: 8),
           Text(
             'Deskripsi Produk',
             style: Theme.of(
@@ -37,17 +37,9 @@ class DeskripsiProduct extends StatelessWidget {
               ),
             },
           ),
-
           const SizedBox(height: 15),
         ],
       ),
     );
   }
-}
-
-String removeHtmlTags(String htmlText) {
-  return htmlText
-      .replaceAll(RegExp(r'<[^>]*>'), '')
-      .replaceAll('&nbsp;', ' ')
-      .trim();
 }

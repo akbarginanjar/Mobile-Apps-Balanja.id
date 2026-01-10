@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_balanja_id/balanja_app/config/theme.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class DetailProdukSkeleton extends StatelessWidget {
@@ -9,8 +8,12 @@ class DetailProdukSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
+      effect: ShimmerEffect(
+        baseColor: Colors.grey.shade800,
+        highlightColor: Colors.grey.shade700,
+      ),
       child: Scaffold(
-        backgroundColor: dark,
+        backgroundColor: const Color(0xFF1E1E1E),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +52,7 @@ class DetailProdukSkeleton extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 12),
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.grey[100],
+                              color: Colors.grey[900],
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(
@@ -116,7 +119,7 @@ class DetailProdukSkeleton extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: Colors.grey[900],
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(

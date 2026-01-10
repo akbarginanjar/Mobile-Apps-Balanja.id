@@ -297,14 +297,20 @@ class _ProductScreenState extends State<ProductScreen> {
                       );
                     },
                   ),
-
-                  Container(height: 8, color: Colors.grey[100]),
+                  if (textTheme == Colors.black)
+                    Container(height: 8, color: Colors.grey[100]),
                   TokoInfo(produk: produk),
-                  Container(height: 8, color: Colors.grey[100]),
+                  if (textTheme == Colors.black)
+                    Container(height: 8, color: Colors.grey[100]),
+                  if (textTheme == Colors.white) const SizedBox(height: 9),
                   SpesifikasiProduct(produk: produk),
                   DeskripsiProduct(produk: produk),
-                  Container(height: 8, color: Colors.grey[100]),
-                  RatingUlasanWidget(),
+                  if (textTheme == Colors.white) const SizedBox(height: 9),
+                  if (textTheme == Colors.black)
+                    Container(height: 8, color: Colors.grey[100]),
+                  UlasanView(
+                    barangId: produk.varianBarang![0].barangId!.toString(),
+                  ),
                   const SizedBox(height: 100.0),
                 ],
               ),
