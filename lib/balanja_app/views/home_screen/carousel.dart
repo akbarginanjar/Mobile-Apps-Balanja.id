@@ -21,7 +21,7 @@ class _CarouselState extends State<Carousel> {
             return SizedBox(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.asset(item, fit: BoxFit.contain),
+                child: Image.network(item, fit: BoxFit.contain),
               ),
             );
           }).toList(),

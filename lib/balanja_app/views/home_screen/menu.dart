@@ -1,7 +1,4 @@
 import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
-import 'package:mobile_balanja_id/balanja_app/views/semua_produk_screen/screen.dart';
-import 'package:mobile_balanja_id/expreship_app/helpers/constant.dart';
-import 'package:mobile_balanja_id/expreship_app/views/home/screen.dart';
 
 class MenuHomeScreen extends StatelessWidget {
   const MenuHomeScreen({super.key});
@@ -9,7 +6,7 @@ class MenuHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: dark,
+      color: Colors.grey[50],
       child: Padding(
         padding: const EdgeInsets.only(left: 13, top: 11, bottom: 13),
         child: SingleChildScrollView(
@@ -39,7 +36,7 @@ class MenuHomeScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
-                              color: Colors.grey,
+                              color: primary2,
                               'assets/lainnya.png',
                             ),
                           ),

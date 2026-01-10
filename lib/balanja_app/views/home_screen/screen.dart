@@ -1,13 +1,16 @@
+import 'package:mobile_balanja_id/balanja_app/controllers/home_controller.dart';
 import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
 import 'package:mobile_balanja_id/balanja_app/views/notifikasi_screen/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/profile_screen/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/search_produk/screen.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(HomeController());
     TextEditingController search = TextEditingController();
     return Scaffold(
       body: RefreshIndicator(
@@ -125,13 +128,28 @@ class HomeScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate([
                 SizedBox(height: 15),
-                const Carousel(
-                  listImage: [
-                    'assets/banner/bannerbalanja1.png',
-                    'assets/banner/bannerbalanja2.png',
-                    'assets/banner/bannerbalanja3.png',
-                  ],
-                ),
+                Obx(() {
+                  return Skeletonizer(
+                    enabled: controller.isLoading.value,
+                    child: controller.bannerList.isEmpty
+                        ? Container(
+                            height: 160,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Container(color: Colors.grey.shade300),
+                            ),
+                          )
+                        : Carousel(
+                            listImage: controller.bannerList
+                                .map((e) => e.foto)
+                                .toList(),
+                          ),
+                  );
+                }),
                 const SizedBox(height: 10.0),
                 FutureBuilder(
                   future: loadToko(),
