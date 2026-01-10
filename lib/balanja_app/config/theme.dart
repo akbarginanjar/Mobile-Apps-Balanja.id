@@ -109,7 +109,7 @@ Color warning = HexColor('#FFCA00');
 Color info = HexColor('#1992ff');
 Color dark = HexColor('#ffffff');
 Color dark2 = HexColor('#f3f6f4');
-Color textDark = HexColor('#949492');
+Color textdark = HexColor('#949492');
 
 Color textTheme = Colors.black;
 String nameApp = 'balanja.id';

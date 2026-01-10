@@ -64,7 +64,7 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
         child: Center(
           child: Text(
             'Semua produk telah dimuat.',
-            style: TextStyle(color: textTheme),
+            style: TextStyle(color: textdark),
           ),
         ),
       );
@@ -93,7 +93,7 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
             ),
             Text(
               'di Kategori dan Merek terpilih',
-              style: GoogleFonts.montserrat(color: textTheme, fontSize: 12),
+              style: GoogleFonts.montserrat(fontSize: 12),
             ),
           ],
         ),
@@ -122,30 +122,13 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
-                          color: Colors.grey,
+                          color: textdark,
                         ),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 8,
                           horizontal: 10,
                         ),
-                        // prefixIcon: Icon(Icons.search, color: dark),
-                        // suffix: SizedBox(
-                        //   height: 28,
-                        //   child: ElevatedButton(
-                        //     style: ElevatedButton.styleFrom(
-                        //       backgroundColor: primary,
-                        //       elevation: 0,
-                        //     ),
-                        //     onPressed: () {
-                        //       Get.to(SearchProduk(search: search.text));
-                        //     },
-                        //     child: const Text(
-                        //       'Cari',
-                        //       style: TextStyle(color: Colors.white),
-                        //     ),
-                        //   ),
-                        // ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: primary),
                           borderRadius: BorderRadius.only(
@@ -154,7 +137,11 @@ class _SemuaProdukScreenState extends State<SemuaProdukScreen> {
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[300]!),
+                          borderSide: BorderSide(
+                            color: nameApp == 'balanja.id'
+                                ? Colors.grey[300]!
+                                : Colors.grey[700]!,
+                          ),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15),

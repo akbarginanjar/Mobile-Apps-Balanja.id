@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController search = TextEditingController();
     return Scaffold(
       body: RefreshIndicator(
         color: primary,
@@ -110,7 +111,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: IconButton(
                             icon: Icon(Icons.search, color: dark, size: 24),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(SearchProduk(search: search.text));
+                            },
                           ),
                         ),
                       ],
