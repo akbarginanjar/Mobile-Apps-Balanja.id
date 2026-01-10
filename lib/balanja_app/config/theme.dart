@@ -112,3 +112,4 @@ Color dark2 = HexColor('#f3f6f4');
 Color textDark = HexColor('#949492');
 
 Color textTheme = Colors.black;
+String nameApp = 'balanja.id';

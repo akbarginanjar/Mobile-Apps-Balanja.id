@@ -12,7 +12,7 @@ class DeskripsiProduct extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 2000),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
-      color: dark2,
+      color: dark,
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
