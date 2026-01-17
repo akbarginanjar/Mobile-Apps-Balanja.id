@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:mobile_balanja_id/balanja_app/views/pesanan_screen/button_views/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/pesanan_screen/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/transaksi/screen.dart';
+import 'package:mobile_balanja_id/expreship_app/views/profil/screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     PilihTransaksiScreen(),
     const CartScreen(),
-    const HomeScreen(),
+    const ProfilScreen(),
   ];
 
   @override
@@ -42,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
             currentIndex: value.index,
             enableFeedback: true,
             selectedItemColor: Theme.of(context).colorScheme.primary,
-            unselectedItemColor: Colors.grey[500],
+            unselectedItemColor: textdark,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined),
@@ -50,15 +51,15 @@ class _MainScreenState extends State<MainScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_bag_outlined),
-                label: 'Transaksi',
+                label: 'Pesanan',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart_outlined),
                 label: 'Keranjang',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
-                label: 'Disukai',
+                icon: Icon(Icons.person),
+                label: 'Profil',
               ),
             ],
           ),

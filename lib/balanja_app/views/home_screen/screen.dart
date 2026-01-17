@@ -1,13 +1,12 @@
 import 'package:mobile_balanja_id/balanja_app/controllers/home_controller.dart';
 import 'package:mobile_balanja_id/balanja_app/global_resource.dart';
 import 'package:mobile_balanja_id/balanja_app/views/notifikasi_screen/screen.dart';
-import 'package:mobile_balanja_id/balanja_app/views/profile_screen/screen.dart';
 import 'package:mobile_balanja_id/balanja_app/views/search_produk/screen.dart';
+import 'package:mobile_balanja_id/balanja_app/views/wishlist_produk_screen/screen.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
@@ -35,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Image.asset(
-                    'assets/balanja-logo.png',
+                    'assets/matrial.id-barbg.png',
                     fit: BoxFit.contain,
                     alignment: Alignment.centerLeft,
                   ),
@@ -49,9 +48,9 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.person_outline_outlined, color: primary),
+                  icon: Icon(Icons.favorite_border_rounded, color: primary),
                   onPressed: () {
-                    Get.to(const ProfileScreen());
+                    Get.to(WishlistProdukScreen());
                   },
                 ),
                 const SizedBox(width: 10),
@@ -73,12 +72,13 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: search,
                             decoration: InputDecoration(
                               hintText: 'Cari produk...',
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 15,
-                                color: Colors.grey,
+                                color: textdark,
                               ),
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.symmetric(
@@ -90,16 +90,14 @@ class HomeScreen extends StatelessWidget {
                                   topLeft: Radius.circular(15),
                                   bottomLeft: Radius.circular(15),
                                 ),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
+                                borderSide: BorderSide(color: textdark),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(15),
                                   bottomLeft: Radius.circular(15),
                                 ),
-                                borderSide: BorderSide(color: primary),
+                                borderSide: BorderSide(color: textdark),
                               ),
                             ),
                           ),
@@ -127,7 +125,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 Obx(() {
                   return Skeletonizer(
                     enabled: controller.isLoading.value,
