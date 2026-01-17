@@ -12,7 +12,7 @@ class DeskripsiProduct extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 2000),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
-      color: dark,
+      color: dark2,
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class DeskripsiProduct extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Html(
-            data: produk!.varianBarang![0].barang!.deskripsi ?? '-',
+            data: produk!.varianBarang[0].deskripsi ?? '-',
             style: {
               "body": Style(
                 margin: Margins.zero,

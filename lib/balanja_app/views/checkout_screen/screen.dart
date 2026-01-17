@@ -15,22 +15,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final CheckoutController checkoutController = Get.put(CheckoutController());
   @override
   Widget build(BuildContext context) {
-    // checkoutController.loadAlamatToko(1);
+    checkoutController.loadAlamatToko(1);
     checkoutController.loadAlamatToko(
-      widget.varian!.barang!.memberId.toString(),
+      widget.varian!.gudang!.memberId.toString(),
     );
-    checkoutController.loadTransaksiFee(widget.varian!.memberId.toString());
+    checkoutController.loadTransaksiFee(
+      widget.varian!.gudang!.memberId.toString(),
+    );
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: dark,
-        surfaceTintColor: dark,
+        backgroundColor: dark2,
+        surfaceTintColor: dark2,
         shadowColor: Colors.black38,
         elevation: 3,
         centerTitle: true,
-        title: Text(
-          'Checkout',
-          style: GoogleFonts.montserrat(color: textTheme),
-        ),
+        title: Text('Checkout', style: GoogleFonts.montserrat(color: textdark)),
         iconTheme: IconThemeData(
           color: primary, // Ubah warna ikon kembali di sini
         ),
@@ -68,7 +67,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             side: BorderSide(color: Colors.red[800]!),
                           ),
                           margin: EdgeInsets.all(0),
-                          color: dark,
+                          color: dark2,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Center(
@@ -86,22 +85,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                   const AlamatPengiriman(),
                   KetProduk(varian: widget.varian),
-                  Container(height: 7, color: Colors.grey[200]),
                   const GantiPengiriman(),
-                  Container(height: 7, color: Colors.grey[200]),
                   const GantiKurir(),
-                  Container(height: 7, color: Colors.grey[200]),
                   const MetodePembayaran(),
-                  Container(height: 7, color: Colors.grey[200]),
                   Obx(
                     () => Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        side: BorderSide(color: Colors.grey[200]!),
-                      ),
-                      color: dark2,
-                      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+                      color: dark,
+                      margin: EdgeInsets.symmetric(horizontal: 15),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -138,9 +128,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   vertical: 4.0,
                 ),
                 decoration: BoxDecoration(
-                  color: dark,
+                  color: dark2,
                   border: Border(
-                    top: BorderSide(color: Colors.grey[200]!, width: 1.5),
+                    top: BorderSide(color: Colors.grey[800]!, width: 1.5),
                   ),
                 ),
                 child: Row(

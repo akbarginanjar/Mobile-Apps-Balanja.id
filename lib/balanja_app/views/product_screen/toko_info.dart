@@ -9,7 +9,7 @@ class TokoInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: dark,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 11.0),
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,8 @@ class TokoInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        produk!.varianBarang![0].gudang!.namaGudang.toString(),
+                        produk!.varianBarang[0].gudang!.member!.namaLengkap
+                            .toString(),
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -115,7 +116,7 @@ class TokoInfo extends StatelessWidget {
                         softWrap: true,
                         style: Theme.of(
                           context,
-                        ).textTheme.bodyMedium?.apply(color: textTheme),
+                        ).textTheme.bodyMedium?.apply(color: textdark),
                       ),
                     ],
                   ),

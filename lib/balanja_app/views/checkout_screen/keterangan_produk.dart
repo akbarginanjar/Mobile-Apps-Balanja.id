@@ -16,12 +16,12 @@ class KetProduk extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.setProdukUtama({
         "id": varian!.id,
-        "nama": varian!.barang!.nama,
+        "nama": varian!.nama,
         "barang_id": varian!.barangId,
-        "berat": varian!.barang!.berat,
+        "berat": varian!.berat,
         "harga": varian!.harga,
         "photo": [
-          {"path": varian!.barang!.photo![0].path},
+          {"path": varian!.photo[0].path},
         ],
       });
     });
@@ -29,6 +29,7 @@ class KetProduk extends StatelessWidget {
     return Container(
       color: dark,
       width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
@@ -80,12 +81,11 @@ class KetProduk extends StatelessWidget {
                   if (produk == null) return SizedBox();
 
                   return Card(
-                    color: dark,
-                    surfaceTintColor: dark,
+                    color: dark2,
+                    surfaceTintColor: dark2,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
-                      side: BorderSide(color: Colors.grey[300]!),
                     ),
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Padding(
@@ -126,7 +126,7 @@ class KetProduk extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: textTheme,
+                                        color: Colors.white,
                                       ),
                                     ),
                                     const SizedBox(height: 5),
@@ -157,8 +157,8 @@ class KetProduk extends StatelessWidget {
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    side: BorderSide(
-                                      color: Colors.grey[300]!,
+                                    side: const BorderSide(
+                                      color: Colors.black26,
                                       width: 1.5,
                                     ),
                                   ),
@@ -292,7 +292,7 @@ class KetProduk extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Divider(color: Colors.grey[200]),
+          Divider(color: dark2),
           const SizedBox(height: 2),
           const Voucher(),
         ],

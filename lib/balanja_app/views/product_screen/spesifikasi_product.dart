@@ -11,19 +11,19 @@ class SpesifikasiProduct extends StatelessWidget {
       child: InkWell(
         onTap: () {
           spesifikasi(
-            produk!.varianBarang![0].barang!.satuan!.satuan.toString(),
-            produk!.varianBarang![0].barang!.kategori!.kategori.toString(),
-            produk!.varianBarang![0].barang!.berat.toString(),
+            produk!.varianBarang![0].satuan!.satuan.toString(),
+            produk!.varianBarang![0].kategori!.kategori.toString(),
+            produk!.varianBarang![0].berat.toString(),
           );
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 12, left: 8, right: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Spesifikasi',
-                style: TextStyle(fontSize: 16, color: textTheme),
+                style: TextStyle(fontSize: 16, color: textdark),
               ),
               Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primary),
             ],
@@ -46,7 +46,7 @@ void spesifikasi(String satuan, String kategori, String berat) {
             children: [
               Text(
                 'Spesifikasi',
-                style: TextStyle(fontSize: 17, color: textTheme),
+                style: TextStyle(fontSize: 17, color: textdark),
               ),
               const SizedBox(height: 20),
               Row(
@@ -54,12 +54,9 @@ void spesifikasi(String satuan, String kategori, String berat) {
                 children: [
                   Text(
                     'Satuan',
-                    style: TextStyle(fontSize: 14, color: textTheme),
+                    style: TextStyle(fontSize: 14, color: textdark),
                   ),
-                  Text(
-                    satuan,
-                    style: TextStyle(fontSize: 14, color: textTheme),
-                  ),
+                  Text(satuan, style: TextStyle(fontSize: 14, color: textdark)),
                 ],
               ),
               const SizedBox(height: 5),
@@ -70,11 +67,11 @@ void spesifikasi(String satuan, String kategori, String berat) {
                 children: [
                   Text(
                     'Kategori',
-                    style: TextStyle(fontSize: 14, color: textTheme),
+                    style: TextStyle(fontSize: 14, color: textdark),
                   ),
                   Text(
                     kategori,
-                    style: TextStyle(fontSize: 14, color: textTheme),
+                    style: TextStyle(fontSize: 14, color: textdark),
                   ),
                 ],
               ),
@@ -86,11 +83,11 @@ void spesifikasi(String satuan, String kategori, String berat) {
                 children: [
                   Text(
                     'Berat',
-                    style: TextStyle(fontSize: 14, color: textTheme),
+                    style: TextStyle(fontSize: 14, color: textdark),
                   ),
                   Text(
                     '$berat Gram',
-                    style: TextStyle(fontSize: 14, color: textTheme),
+                    style: TextStyle(fontSize: 14, color: textdark),
                   ),
                 ],
               ),
