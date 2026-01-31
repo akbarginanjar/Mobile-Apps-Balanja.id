@@ -24,7 +24,7 @@ class ShipmentScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        title: Text(
           "Pilih Metode Pengiriman",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -49,10 +49,10 @@ class ShipmentScreen extends StatelessWidget {
                 children: [
                   Text(
                     cat.name ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: textTheme,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -60,13 +60,11 @@ class ShipmentScreen extends StatelessWidget {
                   /// LIST ITEM DI DALAM CATEGORY
                   ...cat.items!.map((item) {
                     return Card(
-                      elevation: 0,
                       margin: const EdgeInsets.only(bottom: 10),
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.grey[200]!),
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      color: dark,
+                      color: dark2,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(15),
                         onTap: () {
@@ -91,7 +89,7 @@ class ShipmentScreen extends StatelessWidget {
                                     Text(
                                       item.name ?? "",
                                       style: const TextStyle(
-                                        color: Colors.black,
+                                        color: Colors.white,
 
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -100,17 +98,17 @@ class ShipmentScreen extends StatelessWidget {
                                     Text(
                                       item.description ?? "",
                                       style: TextStyle(
-                                        color: Colors.black.withOpacity(0.8),
+                                        color: Colors.white.withOpacity(0.8),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Icon(
-                                Icons.chevron_right,
-                                color: Colors.black.withOpacity(0.8),
-                                size: 26,
-                              ),
+                              // Icon(
+                              //   Icons.chevron_right,
+                              //   color: Colors.white.withOpacity(0.8),
+                              //   size: 26,
+                              // ),
                             ],
                           ),
                         ),

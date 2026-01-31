@@ -10,6 +10,7 @@ class GantiKurir extends StatelessWidget {
     return Container(
       color: dark,
       width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12.0),
       child: GetBuilder<CheckoutController>(
         init: CheckoutController(),
@@ -28,7 +29,7 @@ class GantiKurir extends StatelessWidget {
                   Text("Opsi Kurir"),
                 ],
               ),
-              Divider(color: Colors.grey[200]),
+              Divider(color: Colors.grey[800], thickness: 2.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,27 +43,51 @@ class GantiKurir extends StatelessWidget {
                           context,
                         ).textTheme.bodySmall?.apply(color: Colors.grey[600]),
                       ),
-                      Text(
-                        metodeController.courierDescription != null
-                            ? metodeController.courierDescription!
-                            : '-',
-                      ),
+                      if (metodeController.selectShipment == 'kurir_toko')
+                        Text(
+                          metodeController.namaKurirToko != null
+                              ? 'Dikirim langsung oleh toko'
+                              : '-',
+                        )
+                      else
+                        Text(
+                          metodeController.courierDescription != null
+                              ? metodeController.courierDescription!
+                              : '-',
+                        ),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        metodeController.courierName != null
-                            ? metodeController.courierName!
-                            : 'Pilih Opsi Kurir',
-                      ),
-                      Text(
-                        metodeController.courierDuration != null
-                            ? metodeController.courierDuration!
-                            : '-',
-                        style: TextStyle(fontSize: 10),
-                      ),
+                      if (metodeController.selectShipment == 'kurir_toko')
+                        Text(
+                          metodeController.namaKurirToko != null
+                              ? metodeController.namaKurirToko!
+                              : 'Pilih Opsi Kurir',
+                        )
+                      else
+                        Text(
+                          metodeController.courierName != null
+                              ? metodeController.courierName!
+                              : 'Pilih Opsi Kurir',
+                        ),
+                      if (metodeController.selectShipment == 'kurir_toko')
+                        Text(
+                          metodeController.hargaOngkirKurirToko != null
+                              ? toCurrency(
+                                  metodeController.hargaOngkirKurirToko!,
+                                )
+                              : '-',
+                          style: TextStyle(color: primary),
+                        )
+                      else
+                        Text(
+                          metodeController.courierDuration != null
+                              ? metodeController.courierDuration!
+                              : '-',
+                          style: TextStyle(fontSize: 10),
+                        ),
                       if (metodeController.courierPrice.value != 0)
                         Text(
                           metodeController.courierPrice.value != 0
@@ -74,7 +99,7 @@ class GantiKurir extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              Divider(color: Colors.grey[800], thickness: 1.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +107,7 @@ class GantiKurir extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     child: Text(
-                      '',
+                      '-',
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall?.apply(color: Colors.black87),
