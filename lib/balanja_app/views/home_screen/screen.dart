@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Image.asset(
-                    'assets/matrial.id-barbg.png',
+                    'assets/balanja-logo.png',
                     fit: BoxFit.contain,
                     alignment: Alignment.centerLeft,
                   ),
