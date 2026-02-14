@@ -12,7 +12,7 @@ class DikirimTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(TransaksiProdukController());
 
-    if (controller.transaksiDikirim.isEmpty) {
+    if (controller.transaksiDikirim.isEmpty || controller.transaksiDikirim.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         controller.loadDikirim();
       });
