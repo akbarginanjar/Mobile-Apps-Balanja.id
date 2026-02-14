@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
-                'assets/balanja-logo-icon.jpg',
+                'assets/balanja-logo-icon.png',
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width / 2.0,
               ),
